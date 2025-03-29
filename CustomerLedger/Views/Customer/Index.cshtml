@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Customer>
+
+@{
+	ViewData["Title"] = "Customers";
+}
+<h2 class="text-center">@ViewData["Title"]</h2>
+<div class="container">
+	<div class="col-12 p-3">
+		<a class="btn btn-primary" href="@Url.Action("Add")">Add New Customer</a>
+	</div>
+	<div class="row">
+		@foreach (var customer in Model)
+		{
+			<div class="col-md-4 mb-4">
+				<div class="card">
+					<div class="card-body">
+						<h6 class="card-subtitle mb-2 text-muted">ID: @customer.Id</h6>
+						<h5 class="card-title">Name: @customer.Name</h5>
+						<p class="card-text">Phone: @customer.Phone</p>
+						<p class="card-text">Email: @customer.Email</p>
+						<p class="card-text">Discord ID: @customer.Discordid</p>
+						<a href="@Url.Action("Logs", new { id = customer.Id })" class="card-link text-info m-1">Logs</a>
+						<div class="d-flex justify-content-between mt-3 ">
+							<a class="btn btn-warning" href="@Url.Action("Edit", new { id = customer.Id })">Edit</a>
+							<a class="btn btn-danger" href="@Url.Action("Delete", new { id = customer.Id })">Delete</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+

@@ -1,0 +1,43 @@
+﻿@model Customer
+
+@{
+    ViewData["Title"] = $"Logs for Customer: {Model.Name}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="col-12 p-1">
+        <a class="btn btn-info" href="@Url.Action("Index")">Back</a>
+    </div>
+
+    <h4>Customer Details</h4>
+    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Discord ID:</strong> @Model.Discordid</p>
+    <hr />
+
+    <h4>Logs</h4>
+    @if (Model.Logs != null && Model.Logs.Any())
+    {
+        <ul class="list-group">
+            @{
+                int index = 1; 
+            }
+            @foreach (var log in Model.Logs.OrderByDescending(l => l.Timestamp))
+            {
+                <li class="list-group-item">
+                    <strong>Index:</strong> @index<br />
+                    <strong>Action:</strong> @log.Action<br />
+                    <strong>Details:</strong> @log.Details<br />
+                    <strong>Date:</strong> @log.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")<br />
+                    <strong>Day:</strong> @log.Timestamp.ToString("dddd")
+                </li>
+                    index++; 
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No logs available for this customer.</p>
+    }
+</div>

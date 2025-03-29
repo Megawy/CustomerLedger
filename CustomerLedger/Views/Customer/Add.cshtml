@@ -1,0 +1,41 @@
+﻿@model Customer
+
+@{
+    ViewData["Title"] = "Add New Customer";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="col-12 p-1">
+        <a class="btn btn-info" href="@Url.Action("Index")">Back</a>
+    </div>
+    <form asp-action="Add" method="post">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Name</label>
+            <i class="fa-solid fa-asterisk fa-sm" style="color: #ff0000;"></i>
+            <input asp-for="Name" class="form-control" required maxlength="200" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Phone" class="control-label">Phone</label>
+            <input asp-for="Phone" class="form-control" maxlength="22" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="control-label">Email</label>
+            <input asp-for="Email" class="form-control" maxlength="100" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Discordid" class="control-label">Discord ID</label>
+            <i class="fa-solid fa-asterisk fa-sm" style="color: #ff0000;"></i>
+            <input asp-for="Discordid" class="form-control" required maxlength="250" />
+            <span asp-validation-for="Discordid" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-success w-100" />
+        </div>
+    </form>
+</div>
+

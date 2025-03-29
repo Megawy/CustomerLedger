@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TranWithCustomerAndNote>
+
+@{
+    ViewData["Title"] = "Transactions Customers";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="col-12 p-1">
+        <a class="btn btn-info" href="@Url.Action("Add", "Transaction")">Add Transaction</a>
+    </div>
+
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                // Determine card color based on IsPaid status
+                var cardClass = item.Transaction.IsPaid ? "card-success" : "card-danger";
+
+                <div class="col-md-4 mb-4">
+                    <div class="card @cardClass">
+                        <div class="card-header">
+                            <h5 class="card-title">Customer: @item.Customer.Name</h5>
+
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><strong>Customer ID:</strong> @item.Customer.Id</p>
+                            <p class="card-text"><strong>Phone:</strong> @item.Customer.Phone</p>
+                            <p class="card-text"><strong>Discord ID:</strong> @item.Customer.Discordid</p>
+                            <p class="card-text"><strong>NoteText:</strong> @item.Transaction.NoteText</p>
+                            <p class="card-text"><strong>Type:</strong> @item.Transaction.Type</p>
+                            <p class="card-text"><strong>Transaction Amount:</strong> @item.Transaction.Amount.ToString("c")</p>
+                            <p class="card-text"><strong>Transaction IsPaid:</strong> @(item.Transaction.IsPaid ? "Paid" : "Not Paid")</p>
+                            <p class="card-text"><strong>Transaction Date:</strong> @item.Transaction.Date.ToString("yyyy-MM-dd")</p>
+                            <p class="card-text"><strong>Transaction Day:</strong> @item.Transaction.Date.ToString("dddd")</p>
+                            <a href="@Url.Action("Logs", "Customer", new { id = item.Customer.Id })" class="card-link text-info m-1">Logs</a>
+                            <a href="@Url.Action("Index","Tran_Cst", new { id = item.Customer.Id })" class="card-link text-primary m-1">Transaction</a>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a class="btn btn-warning" href="@Url.Action("Edit", new { id = item.Transaction.Id })">Edit</a>
+                                <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.Transaction.Id })">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    No transactions available.
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .card-success {
+        background-color: #d4edda; /* Light green background */
+        border-color: #c3e6cb; /* Border color for the card */
+    }
+
+    .card-danger {
+        background-color: #f8d7da; /* Light red background */
+        border-color: #f5c6cb; /* Border color for the card */
+    }
+</style>

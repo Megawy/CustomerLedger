@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LogWithCustomer>
+
+@{
+	ViewData["Title"] = "Customer Logs";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+	<div class="col-12 p-3">
+		<a class="btn btn-info" href="@Url.Action("Index", "Customer")">Back to Customers</a>
+		<a class="btn btn-primary" href="@Url.Action("Index", "Logs", new { sortOrder = ViewBag.CurrentSort == "desc" ? "asc" : "desc" })">
+			Sort by Date @(ViewBag.CurrentSort == "desc" ? "Ascending" : "Descending")
+		</a>
+	</div>
+
+	<div class="row">
+		@if (Model != null && Model.Any())
+		{
+			@foreach (var item in Model)
+			{
+				<div class="col-md-4 mb-4">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="card-title">Action: @item.Log.Action</h5>
+						</div>
+						<div class="card-body">
+							<h6 class="card-subtitle mb-2 text-muted">Customer Name: @item.Customer.Name</h6>
+							<p class="card-text">Details: @item.Log.Details</p>
+							<p class="card-text">Customer ID: @item.Customer.Id</p>
+							<p class="card-text">Date & Time: @item.Log.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</p>
+							<p class="card-text">Day: @item.Log.Timestamp.ToString("dddd")</p>
+						</div>
+					</div>
+				</div>
+			}
+		}
+		else
+		{
+			<div class="col-12">
+				<div class="alert alert-info" role="alert">
+					No logs available.
+				</div>
+			</div>
+		}
+	</div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model CustomerLedger.Models.TranWithCustomerAndNote
+
+<h2>Add Transaction</h2>
+
+<form asp-action="Add" method="post">
+	<div class="col-12 p-1">
+		<a class="btn btn-info" href="@Url.Action("Index", "Transaction")">Back to Transactions</a>
+	</div>
+	<div class="form-group">
+		<label asp-for="Transaction.CustomerId">Customer:</label>
+		<i class="fa-solid fa-asterisk fa-sm" style="color: #ff0000;"></i>
+		<select asp-for="Transaction.CustomerId" asp-items="ViewBag.Customers" class="form-control"></select>
+		<span asp-validation-for="Transaction.CustomerId" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Transaction.Amount">Amount:</label>
+		<i class="fa-solid fa-asterisk fa-sm" style="color: #ff0000;"></i>
+		<input asp-for="Transaction.Amount" class="form-control" required maxlength="18"/>
+		<span asp-validation-for="Transaction.Amount" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Transaction.IsPaid">Is Paid:</label>
+		<input asp-for="Transaction.IsPaid" type="checkbox" />
+		<span asp-validation-for="Transaction.IsPaid" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Transaction.NoteText">Note:</label>
+		<i class="fa-solid fa-asterisk fa-sm" style="color: #ff0000;"></i>
+		<textarea asp-for="Transaction.NoteText" class="form-control" required maxlength="300"></textarea>
+		<span asp-validation-for="Transaction.NoteText" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Transaction.Type">Type:</label>
+		<i class="fa-solid fa-asterisk fa-sm" style="color: #ff0000;"></i>
+		<select asp-for="Transaction.Type" class="form-control">
+			<option value="Number Blizzard">Number Blizzard</option>
+			<option value="Unlock Blizzard Account">Unlock Blizzard Account</option>
+			<option value="Unlock Lock Account Outlook">Unlock Lock Account Outlook</option>
+		</select>
+		<span asp-validation-for="Transaction.Type" class="text-danger"></span>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Add Transaction</button>
+</form>

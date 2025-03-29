@@ -1,0 +1,73 @@
+﻿@model CustomerLedger.Models.TranWithCustomerAndNote
+
+@{
+    ViewData["Title"] = $"Edit Customer Transaction - {Model.Customer.Name}";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="col-12 p-1">
+        <a class="btn btn-info" href="@Url.Action("Index", "Transaction")">Back to Transactions</a>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Edit Transaction for Customer: @Model.Customer.Name</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Transaction.Id" />
+
+                        <div class="form-group">
+                            <label asp-for="Transaction.Amount" class="control-label">Amount</label>
+                            <i class="fa-solid fa-asterisk fa-sm" style="color: #ff0000;"></i>
+                            <input asp-for="Transaction.Amount" class="form-control" required maxlength="18" />
+                            <span asp-validation-for="Transaction.Amount" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Transaction.IsPaid" class="control-label">Is Paid</label>
+                            <input asp-for="Transaction.IsPaid" type="checkbox" />
+                            <span asp-validation-for="Transaction.IsPaid" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Transaction.Date" class="control-label">Date</label>
+                            <input asp-for="Transaction.Date" class="form-control" type="date"  />
+                            <span asp-validation-for="Transaction.Date" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Transaction.NoteText" class="control-label">Note:</label>
+                            <i class="fa-solid fa-asterisk fa-sm" style="color: #ff0000;"></i>
+                            <textarea asp-for="Transaction.NoteText" class="form-control" required maxlength="250"></textarea>
+                            <span asp-validation-for="Transaction.NoteText" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Transaction.Type" class="control-label">Type:</label>
+                            <i class="fa-solid fa-asterisk fa-sm" style="color: #ff0000;"></i>
+                            <select asp-for="Transaction.Type" class="form-control">
+                                <option value="Number Blizzard">Number Blizzard</option>
+                                <option value="Unlock Blizzard Account">Unlock Blizzard Account</option>
+                                <option value="Unlock Lock Account Outlook">Unlock Lock Account Outlook</option>
+                            </select>
+                            <span asp-validation-for="Transaction.Type" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
